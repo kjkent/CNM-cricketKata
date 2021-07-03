@@ -1,2 +1,2 @@
 ﻿# CNM-cricketKata
-Code Nation's week 1 cricket kata
+Code Nation's week 1 cricket kata. Incomplete.
