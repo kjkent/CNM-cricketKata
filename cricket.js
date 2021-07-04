@@ -1,12 +1,13 @@
 // Creates an array of 11 batters and fills their scores with 0. Creates variables for the current batters and the index of the next batter in line
-let batters = new Array(11).fill(0,0,);
-let batterSentOut = new Array(11).fill(false,0,);
-let currentBatters = [1,2];
-let nextUp = 3;
+let batters = new Array(11).fill(-1,0);
+let batterSentOut = new Array(11).fill(false,0);
+let currentBatters = [0,1];
+batters[0] = 0;
+batters[1] = 0;
+let nextUp = 2;
 const scoreCardString = ".......111....3.4..6...1..11....2....3...W...11...1..2...33...44...W..W..1..2..1.22....1..1......1....11...111.....1.111..222.333...W...211..22.11....1...1...1...1...1..1..3...4....2...1....3...1....646421.3.222..111...333...444......1111...22..333.444............1...1...1.....11.22.WWW11.....1....11....1....1.W...W..1666..W";
 
 //  Selectively parses numbers in scoreCardString into ints, leaving "." and "W" as strings, inputting all back into a mixed array.
-
 let scoreCard = new Array(scoreCardString.length);
 for(let i = 0; i < scoreCardString.length; i++) {
     if(scoreCardString[i] == "1" || scoreCardString[i] == "2" || scoreCardString[i] == "3" || scoreCardString[i] == "4" || scoreCardString[i] == "6") {
@@ -34,21 +35,21 @@ const startScoring = () => {
 
 // addScore takes the score and the current batter and adds the current number of runs to the current batter's overall score in the array
 const addScore = (score, batter) => {
-    batters[batter - 1] += score
+    batters[batter] += score
 }
 
 // swapBatter swaps the two values in the array of currentBatter 
 const swapBatter = () => {
-    let batterA = currentBatters[0];
-    let batterB = currentBatters[1];
-    currentBatters[0] = batterB;
-    currentBatters[1] = batterA;
+    let tmp = currentBatters[0];
+    currentBatters[0] = currentBatters[1];
+    currentBatters[1] = tmp;
 }
 
 // batterOut marks the current batter as out, puts the next batter in line in the position of currentBatters[0] and increments nextUp
 const batterOut = () => {
-    batterSentOut[currentBatters[0] - 1] = true;
+    batterSentOut[currentBatters[0]] = true;
     currentBatters[0] = nextUp;
+    batters[nextUp] = 0;
     nextUp++;
 }
 
@@ -56,17 +57,13 @@ const batterOut = () => {
 const printScores = () => {
     
     for(let i = 0; i < batters.length; i++) {
-        if(batters[i] == 0) {
+        if(batters[i] == -1) {
             batters[i] = "-";
-        }
-    }
-    
-    
-    for(let j = 0; j < batters.length; j++) {
-        if(batterSentOut[j] == false) {
-            console.log(`Batsman ${j + 1}: ${batters[j]} not out`)
+        };
+        if(!batterSentOut[i]) {
+            console.log(`Batsman ${i + 1}: ${batters[i]} not out`)
         } else {
-            console.log(`Batsman ${j + 1}: ${batters[j]}`);
+            console.log(`Batsman ${i + 1}: ${batters[i]}`);
         }
     }
 }
