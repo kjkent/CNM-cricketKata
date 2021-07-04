@@ -1,6 +1,6 @@
 // Creates an array of 11 batters and fills their scores with 0. Creates variables for the current batters and the index of the next batter in line
-let batters = new Array(11).fill(-1,0);
-let batterSentOut = new Array(11).fill(false,0);
+let batters = new Array(11).fill(-1);
+let batterSentOut = new Array(11).fill(false);
 let currentBatters = [0,1];
 batters[0] = 0;
 batters[1] = 0;
