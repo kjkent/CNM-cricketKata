@@ -1,5 +1,6 @@
 // Creates an array of 11 batters and fills their scores with 0. Creates variables for the current batters and the index of the next batter in line
 let batters = new Array(11).fill(0,0,);
+let batterSentOut = new Array(11).fill(false,0,);
 let currentBatters = [1,2];
 let nextUp = 3;
 const scoreCardString = ".......111....3.4..6...1..11....2....3...W...11...1..2...33...44...W..W..1..2..1.22....1..1......1....11...111.....1.111..222.333...W...211..22.11....1...1...1...1...1..1..3...4....2...1....3...1....646421.3.222..111...333...444......1111...22..333.444............1...1...1.....11.22.WWW11.....1....11....1....1.W...W..1666..W";
@@ -44,16 +45,29 @@ const swapBatter = () => {
     currentBatters[1] = batterA;
 }
 
-// batterOut puts the next batter in line in the position of currentBatters[0] and increments nextUp
+// batterOut marks the current batter as out, puts the next batter in line in the position of currentBatters[0] and increments nextUp
 const batterOut = () => {
+    batterSentOut[currentBatters[0] - 1] = true;
     currentBatters[0] = nextUp;
     nextUp++;
 }
 
 // printScores converts the scoreCard array into a readable list of batter scores
 const printScores = () => {
-    for(i = 0; i < batters.length; i++) {
-        console.log(`Batsman ${i + 1}: ${batters[i]}`)
+    
+    for(let i = 0; i < batters.length; i++) {
+        if(batters[i] == 0) {
+            batters[i] = "-";
+        }
+    }
+    
+    
+    for(let j = 0; j < batters.length; j++) {
+        if(batterSentOut[j] == false) {
+            console.log(`Batsman ${j + 1}: ${batters[j]} not out`)
+        } else {
+            console.log(`Batsman ${j + 1}: ${batters[j]}`);
+        }
     }
 }
 
