@@ -9,8 +9,8 @@ const scoreCardString = ".......111....3.4..6...1..11....2....3...W...11...1..2.
 
 //  Selectively parses numbers in scoreCardString into ints, leaving "." and "W" as strings, inputting all back into a mixed array.
 let scoreCard = new Array(scoreCardString.length);
-for(let i = 0; i < scoreCardString.length; i++) {
-    if(scoreCardString[i] == "1" || scoreCardString[i] == "2" || scoreCardString[i] == "3" || scoreCardString[i] == "4" || scoreCardString[i] == "6") {
+for (let i = 0; i < scoreCardString.length; i++) {
+    if (scoreCardString[i] == "1" || scoreCardString[i] == "2" || scoreCardString[i] == "3" || scoreCardString[i] == "4" || scoreCardString[i] == "6") {
         scoreCard[i] = parseInt(scoreCardString[i]);
     } else {
         scoreCard[i] = scoreCardString[i];
@@ -20,13 +20,13 @@ for(let i = 0; i < scoreCardString.length; i++) {
 
 // Function startScoring iterates over the string, calling the functions that record scores, batter swaps and batter-outs, then prints the scores
 const startScoring = () => {
-    for(let i = 0; i < scoreCard.length; i++) {
-        if(scoreCard[i] == 2 || scoreCard[i] == 4 || scoreCard[i] == 6) {
+    for (let i = 0; i < scoreCard.length; i++) {
+        if (scoreCard[i] == 2 || scoreCard[i] == 4 || scoreCard[i] == 6) {
             addScore(scoreCard[i], currentBatters[0]);
-        } else if(scoreCard[i] == 1 || scoreCard[i] == 3) {
+        } else if (scoreCard[i] == 1 || scoreCard[i] == 3) {
             addScore(scoreCard[i], currentBatters[0]);
             swapBatter();
-        } else if(scoreCard[i] == "W") {
+        } else if (scoreCard[i] == "W") {
             batterOut();
         }
     }
@@ -56,11 +56,11 @@ const batterOut = () => {
 // printScores converts the scoreCard array into a readable list of batter scores
 const printScores = () => {
     
-    for(let i = 0; i < batters.length; i++) {
+    for (let i = 0; i < batters.length; i++) {
         if(batters[i] == -1) {
             batters[i] = "-";
         };
-        if(!batterSentOut[i]) {
+        if (!batterSentOut[i]) {
             console.log(`Batsman ${i + 1}: ${batters[i]} not out`)
         } else {
             console.log(`Batsman ${i + 1}: ${batters[i]}`);
