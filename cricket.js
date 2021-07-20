@@ -5,8 +5,8 @@ let currentBatters = [0,1];
 batters[0] = 0;
 batters[1] = 0;
 let nextUp = 2;
+let overcount = 0;
 const scoreCardString = ".......111....3.4..6...1..11....2....3...W...11...1..2...33...44...W..W..1..2..1.22....1..1......1....11...111.....1.111..222.333...W...211..22.11....1...1...1...1...1..1..3...4....2...1....3...1....646421.3.222..111...333...444......1111...22..333.444............1...1...1.....11.22.WWW11.....1....11....1....1.W...W..1666..W";
-
 //  Selectively parses numbers in scoreCardString into ints, leaving "." and "W" as strings, inputting all back into a mixed array.
 let scoreCard = new Array(scoreCardString.length);
 for (let i = 0; i < scoreCardString.length; i++) {
@@ -29,6 +29,12 @@ const startScoring = () => {
         } else if (scoreCard[i] == "W") {
             batterOut();
         }
+        overcount++;
+        if (overcount == 6) {
+            swapBatter();
+            overcount = 0;
+        }
+        console.log(batters.length);
     }
     printScores();
 }
@@ -55,7 +61,6 @@ const batterOut = () => {
 
 // printScores converts the scoreCard array into a readable list of batter scores
 const printScores = () => {
-    
     for (let i = 0; i < batters.length; i++) {
         if(batters[i] == -1) {
             batters[i] = "-";
